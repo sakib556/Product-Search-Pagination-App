@@ -1,11 +1,52 @@
+
 import 'dart:convert';
 
-Product productFromMap(String str) => Product.fromMap(json.decode(str));
+ProductResponse productResponseFromMap(String str) => ProductResponse.fromMap(json.decode(str));
 
-String productToMap(Product data) => json.encode(data.toMap());
+String productResponseToMap(ProductResponse data) => json.encode(data.toMap());
 
-class Product {
-    Product({
+class ProductResponse {
+    ProductResponse({
+        required this.status,
+        required this.data,
+    });
+
+    String status;
+    Data data;
+
+    factory ProductResponse.fromMap(Map<String, dynamic> json) => ProductResponse(
+        status: json["status"],
+        data: Data.fromMap(json["data"]),
+    );
+
+    Map<String, dynamic> toMap() => {
+        "status": status,
+        "data": data.toMap(),
+    };
+}
+
+class Data {
+    Data({
+        required this.categories,
+        required this.products,
+    });
+
+    List<dynamic> categories;
+    Products products;
+
+    factory Data.fromMap(Map<String, dynamic> json) => Data(
+        categories: List<dynamic>.from(json["categories"].map((x) => x)),
+        products: Products.fromMap(json["products"]),
+    );
+
+    Map<String, dynamic> toMap() => {
+        "categories": List<dynamic>.from(categories.map((x) => x)),
+        "products": products.toMap(),
+    };
+}
+
+class Products {
+    Products({
         required this.count,
         required this.next,
         required this.previous,
@@ -15,13 +56,13 @@ class Product {
     int count;
     String next;
     String previous;
-    List<Result> results;
+    List<Product> results;
 
-    factory Product.fromMap(Map<String, dynamic> json) => Product(
+    factory Products.fromMap(Map<String, dynamic> json) => Products(
         count: json["count"],
         next: json["next"],
         previous: json["previous"],
-        results: List<Result>.from(json["results"].map((x) => Result.fromMap(x))),
+        results: List<Product>.from(json["results"].map((x) => Product.fromMap(x))),
     );
 
     Map<String, dynamic> toMap() => {
@@ -32,8 +73,8 @@ class Product {
     };
 }
 
-class Result {
-    Result({
+class Product {
+    Product({
         required this.id,
         required this.brand,
         required this.image,
@@ -113,7 +154,7 @@ class Result {
     List<dynamic> filterValue;
     List<dynamic> distributors;
 
-    factory Result.fromMap(Map<String, dynamic> json) => Result(
+    factory Product.fromMap(Map<String, dynamic> json) => Product(
         id: json["id"],
         brand: Brand.fromMap(json["brand"]),
         image: json["image"],

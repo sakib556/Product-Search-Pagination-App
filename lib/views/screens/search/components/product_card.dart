@@ -30,12 +30,6 @@ class ProductCard extends StatelessWidget {
                           fit: BoxFit.contain,
                   
                         )
-                        // Image.network(
-                        //   'https://picsum.photos/200',
-                        //   width: 40,
-                        //   height: 40,
-                        //   fit: BoxFit.fill,
-                        // ),
                         ),
                   )),
               title.isEmpty ? const SizedBox() : Text(title),

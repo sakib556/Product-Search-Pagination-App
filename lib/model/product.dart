@@ -1,160 +1,154 @@
-
-import 'dart:convert';
-
-ProductResponse productResponseFromMap(String str) => ProductResponse.fromMap(json.decode(str));
-
-String productResponseToMap(ProductResponse data) => json.encode(data.toMap());
-
 class ProductResponse {
-    ProductResponse({
-        required this.status,
-        required this.data,
-    });
+  ProductResponse({
+    required this.status,
+    required this.data,
+  });
 
-    String status;
-    Data data;
+  String status;
+  Data data;
 
-    factory ProductResponse.fromMap(Map<String, dynamic> json) => ProductResponse(
+  factory ProductResponse.fromMap(Map<String, dynamic> json) => ProductResponse(
         status: json["status"],
         data: Data.fromMap(json["data"]),
-    );
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "status": status,
         "data": data.toMap(),
-    };
+      };
 }
 
 class Data {
-    Data({
-        required this.categories,
-        required this.products,
-    });
+  Data({
+    required this.categories,
+    required this.products,
+  });
 
-    List<dynamic> categories;
-    Products products;
+  List<dynamic> categories;
+  Products products;
 
-    factory Data.fromMap(Map<String, dynamic> json) => Data(
+  factory Data.fromMap(Map<String, dynamic> json) => Data(
         categories: List<dynamic>.from(json["categories"].map((x) => x)),
         products: Products.fromMap(json["products"]),
-    );
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "categories": List<dynamic>.from(categories.map((x) => x)),
         "products": products.toMap(),
-    };
+      };
 }
 
 class Products {
-    Products({
-        required this.count,
-        required this.next,
-        required this.previous,
-        required this.results,
-    });
+  Products({
+    required this.count,
+    required this.next,
+    required this.previous,
+    required this.results,
+  });
 
-    int count;
-    String next;
-    String previous;
-    List<Product> results;
+  int count;
+  String next;
+  String previous;
+  List<Result> results;
 
-    factory Products.fromMap(Map<String, dynamic> json) => Products(
+  factory Products.fromMap(Map<String, dynamic> json) => Products(
         count: json["count"],
         next: json["next"],
         previous: json["previous"],
-        results: List<Product>.from(json["results"].map((x) => Product.fromMap(x))),
-    );
+        results:
+            List<Result>.from(json["results"].map((x) => Result.fromMap(x))),
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "count": count,
         "next": next,
         "previous": previous,
         "results": List<dynamic>.from(results.map((x) => x.toMap())),
-    };
+      };
 }
 
-class Product {
-    Product({
-        required this.id,
-        required this.brand,
-        required this.image,
-        required this.charge,
-        required this.images,
-        required this.slug,
-        required this.productName,
-        required this.model,
-        required this.commissionType,
-        required this.amount,
-        required this.tag,
-        required this.description,
-        required this.note,
-        required this.embaddedVideoLink,
-        required this.maximumOrder,
-        required this.stock,
-        required this.isBackOrder,
-        required this.specification,
-        required this.warranty,
-        required this.preOrder,
-        required this.productReview,
-        required this.isSeller,
-        required this.isPhone,
-        required this.willShowEmi,
-        required this.badge,
-        required this.isActive,
-        required this.sackEquivalent,
-        required this.createdAt,
-        required this.updatedAt,
-        required this.language,
-        required this.seller,
-        required this.combo,
-        required this.createdBy,
-        required this.updatedBy,
-        required this.category,
-        required this.relatedProduct,
-        required this.filterValue,
-        required this.distributors,
-    });
+class Result {
+  Result({
+    required this.id,
+    required this.brand,
+    required this.image,
+    required this.charge,
+    required this.images,
+    required this.slug,
+    required this.productName,
+    required this.model,
+    required this.commissionType,
+    required this.amount,
+    required this.tag,
+    required this.description,
+    required this.note,
+    required this.embaddedVideoLink,
+    required this.maximumOrder,
+    required this.stock,
+    required this.isBackOrder,
+    required this.specification,
+    required this.warranty,
+    required this.preOrder,
+    required this.productReview,
+    required this.isSeller,
+    required this.isPhone,
+    required this.willShowEmi,
+    required this.badge,
+    required this.isActive,
+    required this.sackEquivalent,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.language,
+    required this.seller,
+    required this.combo,
+    required this.createdBy,
+    required this.updatedBy,
+    required this.category,
+    required this.relatedProduct,
+    required this.filterValue,
+    required this.distributors,
+  });
 
-    int id;
-    Brand brand;
-    String image;
-    Charge charge;
-    List<Image> images;
-    String slug;
-    String productName;
-    String model;
-    String commissionType;
-    String amount;
-    String tag;
-    String description;
-    String note;
-    String embaddedVideoLink;
-    int maximumOrder;
-    int stock;
-    bool isBackOrder;
-    String specification;
-    String warranty;
-    bool preOrder;
-    int productReview;
-    bool isSeller;
-    bool isPhone;
-    bool willShowEmi;
-    dynamic badge;
-    bool isActive;
-    String sackEquivalent;
-    DateTime createdAt;
-    DateTime updatedAt;
-    dynamic language;
-    String seller;
-    dynamic combo;
-    String createdBy;
-    dynamic updatedBy;
-    List<int> category;
-    List<dynamic> relatedProduct;
-    List<dynamic> filterValue;
-    List<dynamic> distributors;
+  int id;
+  Brand brand;
+  String image;
+  Charge charge;
+  List<Image> images;
+  String slug;
+  String productName;
+  String model;
+  String commissionType;
+  String amount;
+  String tag;
+  String description;
+  String note;
+  String embaddedVideoLink;
+  int maximumOrder;
+  int stock;
+  bool isBackOrder;
+  String specification;
+  String warranty;
+  bool preOrder;
+  int productReview;
+  bool isSeller;
+  bool isPhone;
+  bool willShowEmi;
+  dynamic badge;
+  bool isActive;
+  String sackEquivalent;
+  DateTime createdAt;
+  DateTime updatedAt;
+  dynamic language;
+  String seller;
+  dynamic combo;
+  String createdBy;
+  dynamic updatedBy;
+  List<int> category;
+  List<dynamic> relatedProduct;
+  List<dynamic> filterValue;
+  List<dynamic> distributors;
 
-    factory Product.fromMap(Map<String, dynamic> json) => Product(
+  factory Result.fromMap(Map<String, dynamic> json) => Result(
         id: json["id"],
         brand: Brand.fromMap(json["brand"]),
         image: json["image"],
@@ -190,12 +184,13 @@ class Product {
         createdBy: json["created_by"],
         updatedBy: json["updated_by"],
         category: List<int>.from(json["category"].map((x) => x)),
-        relatedProduct: List<dynamic>.from(json["related_product"].map((x) => x)),
+        relatedProduct:
+            List<dynamic>.from(json["related_product"].map((x) => x)),
         filterValue: List<dynamic>.from(json["filter_value"].map((x) => x)),
         distributors: List<dynamic>.from(json["distributors"].map((x) => x)),
-    );
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "id": id,
         "brand": brand.toMap(),
         "image": image,
@@ -234,71 +229,71 @@ class Product {
         "related_product": List<dynamic>.from(relatedProduct.map((x) => x)),
         "filter_value": List<dynamic>.from(filterValue.map((x) => x)),
         "distributors": List<dynamic>.from(distributors.map((x) => x)),
-    };
+      };
 }
 
 class Brand {
-    Brand({
-        required this.name,
-        required this.image,
-        required this.headerImage,
-        required this.slug,
-    });
+  Brand({
+    required this.name,
+    required this.image,
+    required this.headerImage,
+    required this.slug,
+  });
 
-    String name;
-    String image;
-    dynamic headerImage;
-    String slug;
+  String name;
+  String image;
+  dynamic headerImage;
+  String slug;
 
-    factory Brand.fromMap(Map<String, dynamic> json) => Brand(
+  factory Brand.fromMap(Map<String, dynamic> json) => Brand(
         name: json["name"],
         image: json["image"],
         headerImage: json["header_image"],
         slug: json["slug"],
-    );
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "name": name,
         "image": image,
         "header_image": headerImage,
         "slug": slug,
-    };
+      };
 }
 
 class Charge {
-    Charge({
-        required this.bookingPrice,
-        required this.currentCharge,
-        required this.discountCharge,
-        required this.sellingPrice,
-        required this.profit,
-        required this.isEvent,
-        required this.eventId,
-        required this.highlight,
-        required this.highlightId,
-        required this.groupping,
-        required this.grouppingId,
-        required this.campaignSectionId,
-        required this.campaignSection,
-        required this.message,
-    });
+  Charge({
+    required this.bookingPrice,
+    required this.currentCharge,
+    required this.discountCharge,
+    required this.sellingPrice,
+    required this.profit,
+    required this.isEvent,
+    required this.eventId,
+    required this.highlight,
+    required this.highlightId,
+    required this.groupping,
+    required this.grouppingId,
+    required this.campaignSectionId,
+    required this.campaignSection,
+    required this.message,
+  });
 
-    int bookingPrice;
-    int currentCharge;
-    dynamic discountCharge;
-    int sellingPrice;
-    int profit;
-    bool isEvent;
-    dynamic eventId;
-    bool highlight;
-    dynamic highlightId;
-    bool groupping;
-    dynamic grouppingId;
-    dynamic campaignSectionId;
-    bool campaignSection;
-    dynamic message;
+  double bookingPrice;
+  double currentCharge;
+  dynamic discountCharge;
+  double sellingPrice;
+  double profit; //
+  bool isEvent;
+  dynamic eventId;
+  bool highlight;
+  dynamic highlightId;
+  bool groupping;
+  dynamic grouppingId;
+  dynamic campaignSectionId;
+  bool campaignSection;
+  dynamic message;
 
-    factory Charge.fromMap(Map<String, dynamic> json) => Charge(
+  factory Charge.fromMap(Map<String, dynamic> json) => Charge(
         bookingPrice: json["booking_price"],
         currentCharge: json["current_charge"],
         discountCharge: json["discount_charge"],
@@ -313,9 +308,9 @@ class Charge {
         campaignSectionId: json["campaign_section_id"],
         campaignSection: json["campaign_section"],
         message: json["message"],
-    );
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "booking_price": bookingPrice,
         "current_charge": currentCharge,
         "discount_charge": discountCharge,
@@ -330,33 +325,33 @@ class Charge {
         "campaign_section_id": campaignSectionId,
         "campaign_section": campaignSection,
         "message": message,
-    };
+      };
 }
 
 class Image {
-    Image({
-        required this.id,
-        required this.image,
-        required this.isPrimary,
-        required this.product,
-    });
+  Image({
+    required this.id,
+    required this.image,
+    required this.isPrimary,
+    required this.product,
+  });
 
-    int id;
-    String image;
-    bool isPrimary;
-    int product;
+  int id;
+  String image;
+  bool isPrimary;
+  int product;
 
-    factory Image.fromMap(Map<String, dynamic> json) => Image(
+  factory Image.fromMap(Map<String, dynamic> json) => Image(
         id: json["id"],
         image: json["image"],
         isPrimary: json["is_primary"],
         product: json["product"],
-    );
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "id": id,
         "image": image,
         "is_primary": isPrimary,
         "product": product,
-    };
+      };
 }

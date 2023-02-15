@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:grocery_app/model/product.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.title, required this.subTitle});
-  final String title;
-  final String subTitle;
+  const ProductCard({super.key, required this.product});
+  final Result product;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,34 +23,42 @@ class ProductCard extends StatelessWidget {
                         height: 117,
                         width: 87,
                         child: CachedNetworkImage(
-                          imageUrl:
-                              'https://d1ojphegpburrh.cloudfront.net/media/images/product/None/1384/%E0%A6%B8%E0%A6%9C_5.png',
+                          imageUrl: product.image,
                           height: 30,
                           width: 30,
                           fit: BoxFit.contain,
-                  
-                        )
-                        ),
+                        )),
                   )),
-              title.isEmpty ? const SizedBox() : Text(title),
-              const Text("মোজাম্মেল সিদ্ধ খুদ- ৫০ কেজি"),
+              Text(
+                product.productName,
+                style: const TextStyle(
+                    fontSize: 12, overflow: TextOverflow.ellipsis),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Text("ক্রয়"),
-                      SizedBox(
+                    children: [
+                      const Text(
+                        "ক্রয়",
+                        style: TextStyle(fontSize: 8),
+                      ),
+                      const SizedBox(
                         width: 5,
                       ),
-                      Text("৳ 20.00"),
+                      Text(
+                        "৳ ${product.charge.currentCharge}",
+                        style: const TextStyle(fontSize: 16),
+                      ),
                     ],
                   ),
                   RichText(
-                    text: const TextSpan(
-                      text: '৳ 22.00',
-                      style: TextStyle(
+                    text: TextSpan(
+                      text:
+                          '৳ ${product.charge.discountCharge ?? product.charge.currentCharge}',
+                      style: const TextStyle(
+                        fontSize: 12,
                         decoration: TextDecoration.lineThrough,
                         color: Colors.pink,
                       ),
@@ -63,22 +71,40 @@ class ProductCard extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Text("ক্রয়"),
-                      SizedBox(
+                    children: [
+                      const Text(
+                        "বিক্রয়",
+                        style: TextStyle(fontSize: 8),
+                      ),
+                      const SizedBox(
                         width: 5,
                       ),
-                      Text("৳ 20.00"),
+                      Text(
+                        "৳ ${product.charge.sellingPrice}",
+                        style: const TextStyle(fontSize: 12),
+                      ),
                     ],
                   ),
-                  RichText(
-                    text: const TextSpan(
-                      text: '৳ 22.00',
-                      style: TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                        color: Colors.pink,
+                  Row(
+                    children: [
+                      const Text(
+                        "লাভ",
+                        style: TextStyle(fontSize: 8),
                       ),
-                    ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: '৳ ${product.charge.profit}',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            decoration: TextDecoration.lineThrough,
+                            color: Colors.pink,
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 ],
               )

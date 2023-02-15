@@ -12,12 +12,12 @@ class ProductCubit extends Cubit<ProductState> {
   int offset = 10;
   final ProductRepo repo;
 
-  void loadPosts() {
+  void loadProducts() {
     if (state is ProductLoading) return;
 
     final currentState = state;
 
-    var oldProducts = <Product>[];
+    var oldProducts = <Result>[];
     if (currentState is ProductLoaded) {
       oldProducts = currentState.products;
     }

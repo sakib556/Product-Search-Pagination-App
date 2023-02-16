@@ -26,6 +26,7 @@ class ProductRepo {
       var map = jsonDecode(utf8.decode(response.bodyBytes));
       return ProductResponse.fromMap(map).data.products.results;
     } catch (err) {
+      print("error is : $err");
       return [];
     }
   }

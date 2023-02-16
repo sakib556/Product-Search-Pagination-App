@@ -34,8 +34,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const productCubit = BlocProvider.of<ProductCubit>;
     setupScrollController(context);
-    BlocProvider.of<ProductCubit>(context).loadProducts();
+    productCubit(context).loadProducts();
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -43,13 +45,12 @@ class _SearchScreenState extends State<SearchScreen> {
             SearchBox(
               searchController: _searchController,
               onSubmitted: (String slug) {
-                //hit the api value with the slug
-                //setstate now for test
-                setState(() {});
+                productCubit(context).offset = 10;
+                productCubit(context).slug = slug;
+                productCubit(context).loadProducts();
               },
             ),
             ProductList(
-              slug: _searchController.text,
               scrollController: _scrollController,
             )
           ],
@@ -59,25 +60,11 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 }
 
-final List<String> productList = [
-  "index1",
-  "index2",
-  "index3",
-  "index4",
-  "index5",
-  "index6",
-  "index6",
-  "index6",
-  "index6",
-];
-
 class ProductList extends StatelessWidget {
   const ProductList({
     Key? key,
-    required this.slug,
     required this.scrollController,
   }) : super(key: key);
-  final String slug;
   final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
@@ -99,10 +86,10 @@ class ProductList extends StatelessWidget {
         child: GridView.builder(
           controller: scrollController,
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              childAspectRatio: (250 / 400),
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20),
+              maxCrossAxisExtent: 300,
+              childAspectRatio: (270 / 400),
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5),
           itemCount: products.length + (isLoading ? 1 : 0),
           itemBuilder: (BuildContext ctx, index) {
             print("length :  ${products.length}\n");
@@ -121,15 +108,6 @@ class ProductList extends StatelessWidget {
             }
           },
         ),
-        // GridView.count(
-        //   controller: scrollController,
-        //   crossAxisCount: 2,
-        //   childAspectRatio: (250 / 400), // width/height
-        //   shrinkWrap: true,
-        //   children: productList
-        //       .map((subTitle) => ProductCard(title: slug, subTitle: subTitle))
-        //       .toList(),
-        // ),
       );
     });
   }

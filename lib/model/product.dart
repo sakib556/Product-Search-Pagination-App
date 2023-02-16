@@ -278,11 +278,11 @@ class Charge {
     required this.message,
   });
 
-  double bookingPrice;
-  double currentCharge;
+  dynamic bookingPrice;
+  dynamic currentCharge;
   dynamic discountCharge;
-  double sellingPrice;
-  double profit; //
+  dynamic sellingPrice;
+  dynamic profit; //
   bool isEvent;
   dynamic eventId;
   bool highlight;

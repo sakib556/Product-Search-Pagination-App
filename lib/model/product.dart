@@ -43,32 +43,32 @@ class Products {
     required this.count,
     required this.next,
     required this.previous,
-    required this.results,
+    required this.products,
   });
 
   int count;
   String next;
   String previous;
-  List<Result> results;
+  List<Product> products;
 
   factory Products.fromMap(Map<String, dynamic> json) => Products(
         count: json["count"],
         next: json["next"],
         previous: json["previous"],
-        results:
-            List<Result>.from(json["results"].map((x) => Result.fromMap(x))),
+        products:
+            List<Product>.from(json["results"].map((x) => Product.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
         "count": count,
         "next": next,
         "previous": previous,
-        "results": List<dynamic>.from(results.map((x) => x.toMap())),
+        "results": List<dynamic>.from(products.map((x) => x.toMap())),
       };
 }
 
-class Result {
-  Result({
+class Product {
+  Product({
     required this.id,
     required this.brand,
     required this.image,
@@ -148,7 +148,7 @@ class Result {
   List<dynamic> filterValue;
   List<dynamic> distributors;
 
-  factory Result.fromMap(Map<String, dynamic> json) => Result(
+  factory Product.fromMap(Map<String, dynamic> json) => Product(
         id: json["id"],
         brand: Brand.fromMap(json["brand"]),
         image: json["image"],

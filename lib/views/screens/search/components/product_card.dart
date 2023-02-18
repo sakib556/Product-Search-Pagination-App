@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:grocery_app/model/product.dart';
+import 'package:grocery_app/views/custom_widgets/rounded_container.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.product});
-  final Result product;
+  final Product product;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(2),
-      child: Card(
-        color: Colors.white,
+      child: RoundedContainer(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -31,8 +31,11 @@ class ProductCard extends StatelessWidget {
                   )),
               Text(
                 product.productName,
+                maxLines: 2,
                 style: const TextStyle(
-                    fontSize: 12, overflow: TextOverflow.ellipsis),
+                  fontSize: 12,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -34,7 +34,6 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.2
   http: ^0.13.5
-
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

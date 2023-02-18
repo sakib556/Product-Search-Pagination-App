@@ -15,7 +15,7 @@ class ProductCubit extends Cubit<ProductState> {
     if (state is ProductLoading) return;
 
     final currentState = state;
-    var oldProducts = <Result>[];
+    var oldProducts = <Product>[];
 
     if (currentState is ProductLoaded) {
       offset == 10 ? [] : oldProducts = currentState.products;

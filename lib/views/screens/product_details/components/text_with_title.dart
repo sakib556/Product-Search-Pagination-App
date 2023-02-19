@@ -8,16 +8,16 @@ class TextWithTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text.rich(
+      TextSpan(
+        text: title,
+        style: const TextStyle(color: MyColors.deepGrey),
+        children: [
           TextSpan(
-            text:  title,
-            style: const TextStyle(color: MyColors.deepGrey),
-            children: [
-              TextSpan(
-                text: value,
-                style: const TextStyle(color: MyColors.deep),
-              ),
-            ],
+            text: value,
+            style: const TextStyle(color: MyColors.deep),
           ),
-        );
+        ],
+      ),
+    );
   }
 }

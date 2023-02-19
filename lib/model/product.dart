@@ -113,7 +113,7 @@ class Product {
   Brand brand;
   String image;
   Charge charge;
-  List<Image> images;
+  List<ProductImage> images;
   String slug;
   String productName;
   String model;
@@ -153,7 +153,7 @@ class Product {
         brand: Brand.fromMap(json["brand"]),
         image: json["image"],
         charge: Charge.fromMap(json["charge"]),
-        images: List<Image>.from(json["images"].map((x) => Image.fromMap(x))),
+        images: List<ProductImage>.from(json["images"].map((x) => ProductImage.fromMap(x))),
         slug: json["slug"],
         productName: json["product_name"],
         model: json["model"],
@@ -328,8 +328,8 @@ class Charge {
       };
 }
 
-class Image {
-  Image({
+class ProductImage {
+  ProductImage({
     required this.id,
     required this.image,
     required this.isPrimary,
@@ -341,7 +341,7 @@ class Image {
   bool isPrimary;
   int product;
 
-  factory Image.fromMap(Map<String, dynamic> json) => Image(
+  factory ProductImage.fromMap(Map<String, dynamic> json) => ProductImage(
         id: json["id"],
         image: json["image"],
         isPrimary: json["is_primary"],

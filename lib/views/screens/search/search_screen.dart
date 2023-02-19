@@ -3,9 +3,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery_app/constant/my_colors.dart';
 import 'package:grocery_app/cubit/product/product_cubit.dart';
 import 'package:grocery_app/model/product.dart';
 import 'package:grocery_app/views/custom_widgets/search_box.dart';
+import 'package:grocery_app/views/screens/product_details/product_details_screen.dart';
 import 'package:grocery_app/views/screens/search/components/product_card.dart';
 import 'package:grocery_app/views/custom_widgets/loading_indicator.dart';
 
@@ -17,7 +19,6 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final TextEditingController _searchController = TextEditingController();
   final _scrollController = ScrollController();
 
   void setupScrollController(context) {
@@ -40,20 +41,23 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            SearchBox(
-              searchController: _searchController,
-              onSubmitted: (String slug) {
-                productCubit(context).offset = 10;
-                productCubit(context).slug = slug;
-                productCubit(context).loadProducts();
-              },
-            ),
-            ProductList(
-              scrollController: _scrollController,
-            )
-          ],
+        child: Container(
+          color: MyColors.background,
+          padding: const EdgeInsets.only(right: 10,left: 10,top: 10),
+          child: Column(
+            children: <Widget>[
+              SearchBox(
+                onSubmitted: (String slug) {
+                  productCubit(context).offset = 10;
+                  productCubit(context).slug = slug;
+                  productCubit(context).loadProducts();
+                },
+              ),
+              ProductList(
+                scrollController: _scrollController,
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -73,7 +77,7 @@ class ProductList extends StatelessWidget {
         return const LoadingIndicator();
       }
 
-      List<Result> products = [];
+      List<Product> products = [];
       bool isLoading = false;
 
       if (state is ProductLoading) {
@@ -83,30 +87,57 @@ class ProductList extends StatelessWidget {
         products = state.products;
       }
       return Expanded(
-        child: GridView.builder(
-          controller: scrollController,
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 300,
-              childAspectRatio: (270 / 400),
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5),
-          itemCount: products.length + (isLoading ? 1 : 0),
-          itemBuilder: (BuildContext ctx, index) {
-            print("length :  ${products.length}\n");
-            print("index :  ${index}\n");
-            if (index < products.length) {
-              return ProductCard(
-                product: products[index],
-              );
-            } else {
-              Timer(const Duration(milliseconds: 30), () {
-                scrollController
-                    .jumpTo(scrollController.position.maxScrollExtent);
-              });
+        child: Column(
+          children: [
+            Expanded(
+              flex: 9,
+              child: GridView.builder(
+                controller: scrollController,
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 300,
+                  childAspectRatio: (270 / 400),
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                ),
+                itemCount: products.length,
+                itemBuilder: (BuildContext ctx, index) {
+                  if (index < products.length) {
+                    return GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => ProductDetailsScreen(
+                                slugId: products[index].slug,
+                              )),
+                        ),
+                      ),
+                      child: ProductCard(
+                        product: products[index],
+                      ),
+                    );
+                  } else {
+                    Timer(const Duration(milliseconds: 30), () {
+                      scrollController
+                          .jumpTo(scrollController.position.maxScrollExtent);
+                    });
 
-              return const LoadingIndicator();
-            }
-          },
+                    return const SizedBox.shrink();
+                  }
+                },
+              ),
+            ),
+            
+            if (isLoading)
+              const Expanded(
+                flex: 1,
+                child: SizedBox(
+                  height: 10,
+                  child: Center(
+                    child: LoadingIndicator(),
+                  ),
+                ),
+              )
+          ],
         ),
       );
     });

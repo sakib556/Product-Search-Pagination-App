@@ -11,6 +11,7 @@ class ProductCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(2),
       child: RoundedContainer(
+        radius: 15,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(

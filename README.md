@@ -13,8 +13,15 @@
   <img src="https://user-images.githubusercontent.com/71273832/220117297-aab9368f-6e12-476b-a8be-def2f1ffd353.jpg" width="200" height="400">
 </div>
 
-
-
+### Details : 
+    
+In this project I integrate 2 rest-api in 2 screens.
+- Search screen : On this screen , I have integrated a rest api for pagination , gradually 10 product can view on every hit in the api. A searchbar also added, where you can search the products by the slug name like "rice".
+- Details screen : On this screen , I have integrated a rest api which body is taken the slug value of the product and show the details of that product. 
+    
+I have used Cubit(Bloc) pattern to hanldle the state.(Used 3 state: initial,loading,loaded)
+    
+    
 
 
 

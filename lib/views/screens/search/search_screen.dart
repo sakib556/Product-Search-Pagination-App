@@ -40,10 +40,11 @@ class _SearchScreenState extends State<SearchScreen> {
     productCubit(context).loadProducts();
 
     return Scaffold(
+      appBar: AppBar(backgroundColor: MyColors.background,),
       body: SafeArea(
         child: Container(
           color: MyColors.background,
-          padding: const EdgeInsets.only(right: 10,left: 10,top: 10),
+          padding: const EdgeInsets.only(right: 10, left: 10),
           child: Column(
             children: <Widget>[
               SearchBox(
@@ -52,6 +53,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   productCubit(context).slug = slug;
                   productCubit(context).loadProducts();
                 },
+              ),
+              const SizedBox(
+                height: 10,
               ),
               ProductList(
                 scrollController: _scrollController,
@@ -93,27 +97,17 @@ class ProductList extends StatelessWidget {
               flex: 9,
               child: GridView.builder(
                 controller: scrollController,
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 300,
-                  childAspectRatio: (270 / 400),
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                ),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: (270 / 300),
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 17,
+                    mainAxisExtent: 280),
                 itemCount: products.length,
                 itemBuilder: (BuildContext ctx, index) {
                   if (index < products.length) {
-                    return GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: ((context) => ProductDetailsScreen(
-                                slugId: products[index].slug,
-                              )),
-                        ),
-                      ),
-                      child: ProductCard(
-                        product: products[index],
-                      ),
+                    return ProductCard(
+                      product: products[index],
                     );
                   } else {
                     Timer(const Duration(milliseconds: 30), () {
@@ -126,7 +120,6 @@ class ProductList extends StatelessWidget {
                 },
               ),
             ),
-            
             if (isLoading)
               const Expanded(
                 flex: 1,

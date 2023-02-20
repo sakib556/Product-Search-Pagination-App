@@ -13,19 +13,21 @@ class ProductRepo {
           Uri.parse(
               "$baseUrl/product/search-suggestions?limit=$limit&offset=$offset&search=$slug"),
           headers: {'Content-Type': 'application/json'});
-      var map = jsonDecode(utf8.decode(response.bodyBytes));
-      return ProductResponse.fromMap(map).data.products.products;
+      if (response.statusCode == 200) {
+        var map = jsonDecode(utf8.decode(response.bodyBytes));
+        return ProductResponse.fromMap(map).data.products.products;
+      }
     } catch (err) {
-      print("error is : $err");
       return [];
     }
+      return [];
   }
 
   Future<Product> productDetails(String slugId) async {
     final response = await get(Uri.parse("$baseUrl/product-details/$slugId/"),
         headers: {'Content-Type': 'application/json'});
     var map = jsonDecode(utf8.decode(response.bodyBytes));
-      print("map is : $map");
+    print("map is : $map");
 
     return ProductDetailsResponse.fromMap(map).product;
   }

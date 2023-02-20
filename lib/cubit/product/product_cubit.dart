@@ -31,4 +31,24 @@ class ProductCubit extends Cubit<ProductState> {
       emit(ProductLoaded(products));
     });
   }
+
+  void addToCart(Product product) {
+    final List<Product> productList = (state as ProductLoaded).products;
+    final productIndex = productList.indexWhere(
+      (item) => item.id == product.id,
+    );
+    final updatedProduct = product.copyWith(cartCount: product.cartCount + 1);
+    productList[productIndex] = updatedProduct;
+    emit(ProductLoaded(productList));
+  }
+
+  void removeFromCart(Product product) {
+      final List<Product> productList = (state as ProductLoaded).products;
+    final productIndex = productList.indexWhere(
+      (item) => item.id == product.id,
+    );
+    final updatedProduct = product.copyWith(cartCount: product.cartCount - 1);
+    productList[productIndex] = updatedProduct;
+    emit(ProductLoaded(productList));
+  }
 }

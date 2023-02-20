@@ -7,18 +7,19 @@ class RoundedContainer extends StatelessWidget {
     Key? key,
     required this.child,
     required this.radius,
+    this.backgroundColor,
   }) : super(key: key);
   final Widget child;
   final double radius;
+  final Color? backgroundColor;
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: backgroundColor ?? Colors.white,
         borderRadius: BorderRadius.circular(radius),
       ),
       child: child,
-    
     );
   }
 }

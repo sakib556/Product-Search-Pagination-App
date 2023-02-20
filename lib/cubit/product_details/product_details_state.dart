@@ -10,7 +10,6 @@ class ProductDetailsLoaded extends ProductDetailsState {
   final Product product;
 
   ProductDetailsLoaded(this.product);
-
  
 }
 

@@ -14,6 +14,7 @@ void main() {
       BlocProvider(
         create: (_) => ProductDetailsCubit(ProductRepo()),
       ),
+      
     ],
     child: const MyApp(),
   ));

@@ -129,10 +129,10 @@ class ProductCard extends StatelessWidget {
               children: [
                 const SmallText(text: "ক্রয়"),
                 const SizedBox(
-                  width: 5,
+                  width: 3,
                 ),
                 Text(
-                  "৳ ${product.charge.currentCharge}",
+                  "৳${product.charge.currentCharge}",
                   style: const TextStyle(
                     fontSize: 16,
                     color: MyColors.pink,
@@ -144,7 +144,7 @@ class ProductCard extends StatelessWidget {
             RichText(
               text: TextSpan(
                 text:
-                    '৳ ${product.charge.discountCharge ?? product.charge.currentCharge}',
+                    '৳${product.charge.discountCharge ?? product.charge.currentCharge}',
                 style: const TextStyle(
                   fontSize: 12,
                   decoration: TextDecoration.lineThrough,
@@ -163,10 +163,10 @@ class ProductCard extends StatelessWidget {
               children: [
                 const SmallText(text: "বিক্রয়"),
                 const SizedBox(
-                  width: 5,
+                  width: 3,
                 ),
                 Text(
-                  "৳ ${product.charge.sellingPrice}",
+                  "৳${product.charge.sellingPrice}",
                   style: const TextStyle(
                       fontSize: 12,
                       color: MyColors.deepGrey,
@@ -178,13 +178,14 @@ class ProductCard extends StatelessWidget {
               children: [
                 const SmallText(text: "লাভ"),
                 const SizedBox(
-                  width: 5,
+                  width: 1,
                 ),
                 RichText(
                   text: TextSpan(
-                    text: '৳ ${product.charge.profit}',
+                    text: '৳${product.charge.profit}',
                     style: const TextStyle(
                         fontSize: 12,
+                        overflow: TextOverflow.ellipsis,
                         color: MyColors.deepGrey,
                         fontWeight: FontWeight.w600),
                   ),

@@ -76,7 +76,7 @@ class ProductDetails extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
                     ImageSlider(images: product.images),
@@ -148,6 +148,7 @@ class ProductDetails extends StatelessWidget {
     return Row(
       children: [
         TextWithTitle(
+          isTextEllipsis: true,
           title: "ব্রান্ডঃ ",
           value: product.brand.name,
         ),

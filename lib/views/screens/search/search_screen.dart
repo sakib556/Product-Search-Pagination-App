@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
       body: SafeArea(
         child: Container(
           color: MyColors.background,
-          padding: const EdgeInsets.only(right: 10, left: 10),
+          padding: const EdgeInsets.only(right: 8, left: 8),
           child: Column(
             children: <Widget>[
               SearchBox(
@@ -54,6 +54,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   productCubit(context).loadProducts();
                 },
               ),
+              const SizedBox(
+                height: 10,
+              ),
+             
               const SizedBox(
                 height: 10,
               ),

@@ -1,13 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery_app/bloc/product/product_bloc.dart';
 import 'package:grocery_app/constant/my_colors.dart';
-import 'package:grocery_app/cubit/product/product_cubit.dart';
 import 'package:grocery_app/model/product.dart';
 import 'package:grocery_app/views/custom_widgets/search_box.dart';
-import 'package:grocery_app/views/screens/product_details/product_details_screen.dart';
 import 'package:grocery_app/views/screens/search/components/product_card.dart';
 import 'package:grocery_app/views/custom_widgets/loading_indicator.dart';
 
@@ -26,7 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
       if (_scrollController.position.atEdge) {
         if (_scrollController.position.pixels != 0) {
           print("load pruduct 1\n");
-          BlocProvider.of<ProductCubit>(context).loadProducts();
+          BlocProvider.of<ProductBloc>(context).add(LoadProductEvent());
           print("load pruduct 2\n");
         }
       }
@@ -35,12 +33,14 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const productCubit = BlocProvider.of<ProductCubit>;
     setupScrollController(context);
-    productCubit(context).loadProducts();
+    final productBloc = BlocProvider.of<ProductBloc>(context);
+    productBloc.add(LoadProductEvent());
 
     return Scaffold(
-      appBar: AppBar(backgroundColor: MyColors.background,),
+      appBar: AppBar(
+        backgroundColor: MyColors.background,
+      ),
       body: SafeArea(
         child: Container(
           color: MyColors.background,
@@ -49,15 +49,14 @@ class _SearchScreenState extends State<SearchScreen> {
             children: <Widget>[
               SearchBox(
                 onSubmitted: (String slug) {
-                  productCubit(context).offset = 10;
-                  productCubit(context).slug = slug;
-                  productCubit(context).loadProducts();
+                  productBloc.offset = 10;
+                  productBloc.slug = slug;
+                  productBloc.add(LoadProductEvent());
                 },
               ),
               const SizedBox(
                 height: 10,
               ),
-             
               const SizedBox(
                 height: 10,
               ),
@@ -80,7 +79,7 @@ class ProductList extends StatelessWidget {
   final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductCubit, ProductState>(builder: (context, state) {
+    return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
       if (state is ProductLoading && state.isFirstFetch) {
         return const LoadingIndicator();
       }

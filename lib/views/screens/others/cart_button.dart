@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app/cubit/product/product_cubit.dart';
+import 'package:grocery_app/bloc/product/product_bloc.dart';
 import 'package:grocery_app/model/product.dart';
 import 'package:grocery_app/views/custom_widgets/plus_button.dart';
 import 'package:grocery_app/views/custom_widgets/minus_button.dart';
@@ -11,6 +11,8 @@ class CartButton extends StatelessWidget {
   final Product product;
   @override
   Widget build(BuildContext context) {
+    final productBloc = BlocProvider.of<ProductBloc>(context);
+
     return Center(
       child: Container(
         width: 140,
@@ -27,7 +29,8 @@ class CartButton extends StatelessWidget {
             MinusButton(
               onTap: () {
                 if (product.cartCount != 0) {
-                  context.read<ProductCubit>().removeFromCart(product);
+                  productBloc.add(RemoveFromCartEvent(product));
+                  // context.read<ProductBloc>().removeFromCart(product);
                 }
               },
               height: 28,
@@ -44,7 +47,7 @@ class CartButton extends StatelessWidget {
               onTap: () {
                 if (product.cartCount != product.stock) {
                   print("object1");
-                  context.read<ProductCubit>().addToCart(product);
+                  productBloc.add(AddToCartEvent(product));
                   print("object1");
                 }
               },

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grocery_app/cubit/product_details/product_details_cubit.dart';
+import 'package:grocery_app/bloc/product_details/product_details_bloc.dart';
 import 'package:grocery_app/views/custom_widgets/loading_indicator.dart';
 import 'package:grocery_app/model/product.dart';
 import 'package:grocery_app/constant/my_colors.dart';
 import 'package:grocery_app/constant/my_pictures.dart';
 import 'package:grocery_app/views/custom_widgets/search_box.dart';
-import 'package:grocery_app/views/screens/others/cart_button.dart';
 import 'package:grocery_app/views/screens/product_details/components/image_slider.dart';
 import 'package:grocery_app/views/screens/product_details/components/text_with_title.dart';
 import 'package:grocery_app/views/screens/product_details/components/text_with_title_row.dart';
@@ -19,8 +18,8 @@ class ProductDetailsScreen extends StatelessWidget {
   final String slugId;
   @override
   Widget build(BuildContext context) {
-    const productCubit = BlocProvider.of<ProductDetailsCubit>;
-    productCubit(context).loadProductDetails(slugId);
+    final productBloc = BlocProvider.of<ProductDetailsBloc>(context);
+    productBloc.add(LoadProductDetailsEvent(slugId));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.background,
@@ -44,7 +43,7 @@ class ProductDetailsScreen extends StatelessWidget {
       body: SafeArea(
           child: Container(
         color: MyColors.background,
-        child: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
+        child: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
             builder: (context, state) {
           if (state is ProductDetailsLoading) {
             return const LoadingIndicator();

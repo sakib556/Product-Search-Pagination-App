@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery_app/bloc/product/product_bloc.dart';
 import 'package:grocery_app/constant/my_colors.dart';
-import 'package:grocery_app/cubit/product/product_cubit.dart';
 import 'package:grocery_app/model/product.dart';
 import 'package:grocery_app/views/custom_widgets/plus_button.dart';
 import 'package:grocery_app/views/custom_widgets/rounded_container.dart';
@@ -107,7 +107,8 @@ class ProductCard extends StatelessWidget {
               print("state id ${product.id}");
               if (product.cartCount != product.stock) {
                 //  print("object11");
-                context.read<ProductCubit>().addToCart(product);
+                final productBloc = BlocProvider.of<ProductBloc>(context);
+                productBloc.add(AddToCartEvent(product));
                 //print("object12");
               }
             },

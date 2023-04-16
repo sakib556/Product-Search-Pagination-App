@@ -1,5 +1,5 @@
 # Inventory App
-  A flutter project with Rest Api & Cubit.
+  A flutter project with Rest Api & BLoC.
   Users Can search their product and get also the details of their project.
 ## Project view 
 <div style="display: flex; flex-wrap: wrap; margin-bottom: 20px;">
